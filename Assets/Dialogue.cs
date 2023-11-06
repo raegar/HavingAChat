@@ -21,7 +21,13 @@ public class DialogueChoice
 public class Dialogue : ScriptableObject
 {
     public DialogueNode startNode; // Starting point of the dialogue
-    public DialogueNode alternativeStartNode; // Alternative starting point if a flag is set
-    public string flagRequiredForAlternative; // The flag that triggers the alternative dialogue
+    public List<AlternativeDialogue> alternativeDialogues;
+}
+
+[System.Serializable]
+public class AlternativeDialogue
+{
+    public string flagRequired;
+    public DialogueNode alternativeStartNode;
 }
 

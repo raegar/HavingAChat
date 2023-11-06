@@ -16,19 +16,25 @@ public class DialogueManager : MonoBehaviour
     {
         nodesQueue.Clear();
 
-        // Check if the alternative start node should be used
-        if (!string.IsNullOrEmpty(dialogue.flagRequiredForAlternative) &&
-            GameStateManager.Instance.GetFlag(dialogue.flagRequiredForAlternative))
+        // Initialize with the default start node
+        DialogueNode startNode = dialogue.startNode;
+
+        // Loop through all alternative dialogues
+        foreach (var alternative in dialogue.alternativeDialogues)
         {
-            // Enqueue the alternative start node
-            nodesQueue.Enqueue(dialogue.alternativeStartNode);
+            // Check if the flag for this alternative is set
+            if (!string.IsNullOrEmpty(alternative.flagRequired) &&
+                GameStateManager.Instance.GetFlag(alternative.flagRequired))
+            {
+                // If the flag is set, use the alternative start node
+                startNode = alternative.alternativeStartNode;
+                break; // Break if you want only the first matching alternative, otherwise remove the break to let the last matching alternative take precedence
+            }
         }
-        else
-        {
-            // Enqueue the start node
-            nodesQueue.Enqueue(dialogue.startNode);
-        }
-        
+
+        // Enqueue the determined start node
+        nodesQueue.Enqueue(startNode);
+
 
         // Start the dialogue
         DisplayNextNode();

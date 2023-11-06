@@ -23,8 +23,8 @@ MonoBehaviour:
           nextNode:
             dialogueText: 
             choices: []
-          flagToSet: 
-          flagValue: 0
+          flagToSet: Accepted NPC1 Quest
+          flagValue: 1
       flagToSet: 
       flagValue: 0
     - choiceText: No, I'm in a hurry.
@@ -37,21 +37,42 @@ MonoBehaviour:
             choices: []
           flagToSet: 
           flagValue: 0
-      flagToSet: Didn't Help NPC
+      flagToSet: Didn't Help NPC1
       flagValue: 1
-  alternativeStartNode:
-    dialogueText: Hello again. Are you still busy?
-    choices:
-    - choiceText: Actually, I'm free now!
-      nextNode:
-        dialogueText: 
-        choices: []
-      flagToSet: Didn't Help NPC
-      flagValue: 0
-    - choiceText: Sorry, Still busy!
-      nextNode:
-        dialogueText: 
-        choices: []
-      flagToSet: 
-      flagValue: 0
-  flagRequiredForAlternative: Didn't Help NPC
+  alternativeDialogues:
+  - flagRequired: Didn't Help NPC1
+    alternativeStartNode:
+      dialogueText: Hello again. Are you still busy?
+      choices:
+      - choiceText: I'm free now, actually!
+        nextNode:
+          dialogueText: 
+          choices: []
+        flagToSet: Didn't Help NPC1
+        flagValue: 0
+      - choiceText: Sorry, still busy!
+        nextNode:
+          dialogueText: 
+          choices: []
+        flagToSet: 
+        flagValue: 0
+  - flagRequired: Completed NPC1 Quest
+    alternativeStartNode:
+      dialogueText: Thanks for helping me earlier.
+      choices: []
+  - flagRequired: Accepted NPC1 Quest
+    alternativeStartNode:
+      dialogueText: Welcome back, did you find the sage?
+      choices:
+      - choiceText: Yes, here you go!
+        nextNode:
+          dialogueText: Thank you so much! Here, take this reward.
+          choices: []
+        flagToSet: Completed NPC1 Quest
+        flagValue: 1
+      - choiceText: Not yet.
+        nextNode:
+          dialogueText: 
+          choices: []
+        flagToSet: 
+        flagValue: 0
