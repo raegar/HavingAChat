@@ -19,11 +19,39 @@ MonoBehaviour:
       nextNode:
         dialogueText: Thank you so much! I need some sage; it grows near the stream.
         choices:
-        - choiceText: I'll be back soon with your herbs.
+        - choiceText: I'll be back with them soon.
           nextNode:
-            dialogueText: Be safe!
+            dialogueText: 
             choices: []
+          flagToSet: 
+          flagValue: 0
+      flagToSet: 
+      flagValue: 0
     - choiceText: No, I'm in a hurry.
       nextNode:
         dialogueText: Oh, I understand. Safe travels!
+        choices:
+        - choiceText: Maybe next time.
+          nextNode:
+            dialogueText: 
+            choices: []
+          flagToSet: 
+          flagValue: 0
+      flagToSet: Didn't Help NPC
+      flagValue: 1
+  alternativeStartNode:
+    dialogueText: Hello again. Are you still busy?
+    choices:
+    - choiceText: Actually, I'm free now!
+      nextNode:
+        dialogueText: 
         choices: []
+      flagToSet: Didn't Help NPC
+      flagValue: 0
+    - choiceText: Sorry, Still busy!
+      nextNode:
+        dialogueText: 
+        choices: []
+      flagToSet: 
+      flagValue: 0
+  flagRequiredForAlternative: Didn't Help NPC

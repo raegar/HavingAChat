@@ -16,8 +16,19 @@ public class DialogueManager : MonoBehaviour
     {
         nodesQueue.Clear();
 
-        // Enqueue the start node
-        nodesQueue.Enqueue(dialogue.startNode);
+        // Check if the alternative start node should be used
+        if (!string.IsNullOrEmpty(dialogue.flagRequiredForAlternative) &&
+            GameStateManager.Instance.GetFlag(dialogue.flagRequiredForAlternative))
+        {
+            // Enqueue the alternative start node
+            nodesQueue.Enqueue(dialogue.alternativeStartNode);
+        }
+        else
+        {
+            // Enqueue the start node
+            nodesQueue.Enqueue(dialogue.startNode);
+        }
+        
 
         // Start the dialogue
         DisplayNextNode();
@@ -60,6 +71,12 @@ public class DialogueManager : MonoBehaviour
     // This method is called when a player makes a choice
     private void MakeChoice(DialogueChoice choice)
     {
+        // Example of setting a flag when a choice is made
+        if (!string.IsNullOrEmpty(choice.flagToSet))
+        {
+            GameStateManager.Instance.SetFlag(choice.flagToSet, choice.flagValue);
+        }
+
         // Enqueue the next node based on the player's choice
         if (choice.nextNode != null)
         {
